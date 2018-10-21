@@ -76,12 +76,12 @@ void BBClass::branchCalc(int cBoundary)
     for(int i=0; i<n; i++)
         for(int j=0; j<n; j++)
         {
-            int currentBoundary = max(cBoundary, matrixA[0][i] + matrixB[0][j]);//назначаем работы
-            //создаём копии исходных матриц
+            int currentBoundary = max(cBoundary, matrixA[0][i] + matrixB[0][j]);//п╫п╟п╥п╫п╟я┤п╟п╣п╪ я─п╟п╠п╬я┌я▀
+            //я│п╬п╥п╢п╟я▒п╪ п╨п╬п©п╦п╦ п╦я│я┘п╬п╢п╫я▀я┘ п╪п╟я┌я─п╦я├
             QVector<QVector<int> > newMA = matrixA;
             QVector<QVector<int> > newMB = matrixB;
 
-          //----убираем в обеих матрицах строки и столбцы относящиеся к назначенным работам
+          //----я┐п╠п╦я─п╟п╣п╪ п╡ п╬п╠п╣п╦я┘ п╪п╟я┌я─п╦я├п╟я┘ я│я┌я─п╬п╨п╦ п╦ я│я┌п╬п╩п╠я├я▀ п╬я┌п╫п╬я│я▐я┴п╦п╣я│я▐ п╨ п╫п╟п╥п╫п╟я┤п╣п╫п╫я▀п╪ я─п╟п╠п╬я┌п╟п╪
             newMA.remove(0);
             for(int k=0; k<n-1; k++)
                 newMA[k].remove(i);
@@ -90,21 +90,21 @@ void BBClass::branchCalc(int cBoundary)
                 newMB[k].remove(j);
           //--------
 
-            //заполняем данные для вычисления подзадачи (без назначенных работ)
+            //п╥п╟п©п╬п╩п╫я▐п╣п╪ п╢п╟п╫п╫я▀п╣ п╢п╩я▐ п╡я▀я┤п╦я│п╩п╣п╫п╦я▐ п©п╬п╢п╥п╟п╢п╟я┤п╦ (п╠п╣п╥ п╫п╟п╥п╫п╟я┤п╣п╫п╫я▀я┘ я─п╟п╠п╬я┌)
             BBClass nInstance(newMA, newMB);
             int currentLowerBoundary = max(currentBoundary, nInstance.lowerBoundary());
             int currentUpperBoundary = max(currentBoundary, nInstance.upperBoundary());
 //            qDebug() << "n = " << n << " i = " << i << " j = " << j << " (" << currentLowerBoundary <<\
 //                        " " << currentUpperBoundary << ")";
 
-            if(currentUpperBoundary < BBRecord) //если текущая верхняя граница больше рекорда,
-                BBRecord = currentUpperBoundary; //то это новый рекорд
+            if(currentUpperBoundary < BBRecord) //п╣я│п╩п╦ я┌п╣п╨я┐я┴п╟я▐ п╡п╣я─я┘п╫я▐я▐ пЁя─п╟п╫п╦я├п╟ п╠п╬п╩я▄я┬п╣ я─п╣п╨п╬я─п╢п╟,
+                BBRecord = currentUpperBoundary; //я┌п╬ я█я┌п╬ п╫п╬п╡я▀п╧ я─п╣п╨п╬я─п╢
 
             if(currentLowerBoundary >= BBRecord || currentUpperBoundary <= currentLowerBoundary)
-                continue; //если нижняя граница больше рекорда, то пропускаем эту ветку
+                continue; //п╣я│п╩п╦ п╫п╦п╤п╫я▐я▐ пЁя─п╟п╫п╦я├п╟ п╠п╬п╩я▄я┬п╣ я─п╣п╨п╬я─п╢п╟, я┌п╬ п©я─п╬п©я┐я│п╨п╟п╣п╪ я█я┌я┐ п╡п╣я┌п╨я┐
 
             else
-                nInstance.branchCalc(currentBoundary); //продолжаем расчёт для текущей ветки
+                nInstance.branchCalc(currentBoundary); //п©я─п╬п╢п╬п╩п╤п╟п╣п╪ я─п╟я│я┤я▒я┌ п╢п╩я▐ я┌п╣п╨я┐я┴п╣п╧ п╡п╣я┌п╨п╦
         }
     //    qDebug() << "record" << record;
 }
